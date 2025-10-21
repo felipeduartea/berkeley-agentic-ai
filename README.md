@@ -1,87 +1,39 @@
-# Green Agent Evaluation Framework
+# StepWise OSWorld Evaluation
 
-This implements a comprehensive evaluation system for AI agents, inspired by OSWorld but adapted for TheAgentCompany benchmark.
-
-## What's Here
-
-```/
-├── run_agent.py              # Run and evaluate an agent
-├── README_GREENAGENT.md      # Full explanation
-├── SETUP.md                  # Setup instructions
-├── results/                  # Output from runs
-│   ├── REPORT.md            # Summary
-│   ├── actions.json         # Agent actions
-│   └── evaluation.json      # Full analysis
-└── evaluation/
-    └── comprehensive_framework/
-        ├── core.py          # Main framework
-        ├── llm_judges.py    # G-Eval, DeepEval
-        ├── heuristics.py    # Behavioral metrics
-        └── scoring.py       # Score aggregation
-```
+StepWise is the Green Agent that benchmarks multimodal White Agents on OSWorld’s executable desktop tasks [@https://os-world.github.io/]. It orchestrates Docker-based VM snapshots, streams observations to agents, executes returned actions, runs OSWorld evaluation scripts, and logs metrics for reproducible comparison.
 
 ## Quick Start
 
 ```bash
-# Install
-pip3 install openai pyyaml httpx
+# Setup OSWorld repository, virtualenv, and monitor
+./setup_osworld.sh
 
-# Run
-export OPENAI_API_KEY="your-key"
-python3 run_agent.py
+# Activate environment
+source env_osworld/bin/activate
 
-# Check results
-cat results/REPORT.md
+# Configure API key
+echo "OPENAI_API_KEY=sk-..." >> .env
+
+# Run StepWise over a subset of tasks (Docker provider)
+python -m berkeley-agentic-ai --mode docker --tasks osworld/evaluation_examples/test_small.json --limit 2
 ```
 
-## How It Works
+## Requirements
 
-Instead of just pass/fail, evaluates in 3 ways:
+- Docker Desktop running with virtualization support
+- Python 3.11+
+- Valid OpenAI API key (GPT-5 preview access)
+- macOS/Linux host with 16 GB+ RAM recommended
 
-1. **Deterministic** - Binary checks (did it work?)
-2. **Heuristics** - Behavioral analysis (efficiency, coherence, quality)
-3. **LLM Judges** - AI assessment (G-Eval with chain-of-thought, DeepEval)
+## Project Layout
 
-Then combines all three with confidence weighting to give you a real understanding of what happened.
+- `stepwise.py` — StepWise Green Agent implementation with StepWise responsibilities
+- `run_osworld_docker.py` — CLI launcher that boots StepWise against Docker VMs
+- `osworld/` — Submodule containing official OSWorld environment, tasks, and evaluators
+- `results/stepwise/` — Output directory for per-agent logs, trajectories, and summaries
 
-## What You Get
+## Resources
 
-```
-Original Score:  0.750
-Green Agent:     0.817
-Confidence:      0.885
-
-Breakdown:
-  deterministic: 0.750
-  heuristic    : 0.887
-  llm_judge    : 0.830
-
-Top Metrics:
-  1. task_efficiency    : 0.950
-  2. action_coherence   : 0.750
-  3. completion_quality : 0.850
-
-AI Judges:
-  g_eval: 0.900
-  "Task completed successfully with logical approach..."
-```
-
-Plus full reports with reasoning, timings, and recommendations.
-
-## Files
-
-Read these in order:
-
-./SETUP.md` - How to install
-./README_GREENAGENT.md` - Full explanation
-./run_agent.py` - The actual code
-
-## Notes
-
-- Costs ~$0.02 per eval (GPT-4 API)
-- Takes ~10-15 seconds
-- Works with any agent that logs actions
-- Extensible with custom metrics/judges
-
-That's it.
-
+- Benchmark website: https://os-world.github.io
+- OSWorld GitHub: https://github.com/xlang-ai/OSWorld
+- Paper: https://arxiv.org/abs/2404.07972
