@@ -1,9 +1,0 @@
-# Comprehensive Evaluation Framework Requirements
-
-# Core dependencies
-openai>=1.0.0  # For LLM judges (G-Eval, DeepEval)
-
-# Optional dependencies (install if needed)
-# anthropic>=0.7.0  # For Claude models
-# litellm>=1.0.0  # For multi-model support
-
