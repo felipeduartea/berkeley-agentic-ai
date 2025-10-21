@@ -182,3 +182,12 @@ redis*
 .env
 .env.local
 .env.*.local
+.env_osworld
+
+# Large binary/VM files
+docker_vm_data/
+osworld/
+results/
+cache/
+.cursor/
+OSWORLD_FILES.txt
