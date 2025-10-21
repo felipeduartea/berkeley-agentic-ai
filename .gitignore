@@ -177,3 +177,8 @@ cython_debug/
 matterbridge/*
 redis*
 !matterbridge/matterbridge.toml
+
+# Environment variables
+.env
+.env.local
+.env.*.local

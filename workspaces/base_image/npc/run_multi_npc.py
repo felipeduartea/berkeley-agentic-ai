@@ -2,7 +2,11 @@ import json
 import time
 import os
 import subprocess
+from dotenv import load_dotenv
 
+
+# Load environment variables from .env file
+load_dotenv()
 
 scenarios_file_path = os.getenv('SCENARIOS_FILE_PATH') or 'scenarios.json'
 openai_api_key = os.getenv('OPENAI_API_KEY')

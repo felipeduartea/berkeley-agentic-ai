@@ -210,8 +210,8 @@ print("  DEMO.md                - This demo script\n")
 pause(1)
 
 print("To run this yourself:\n")
-print("  1. pip3 install openai pyyaml httpx")
-print("  2. export OPENAI_API_KEY='your-key'")
+print("  1. pip3 install openai pyyaml httpx python-dotenv")
+print("  2. cp .env.example .env && add your OPENAI_API_KEY to .env")
 print("  3. python3 run_agent.py\n")
 
 pause(2)

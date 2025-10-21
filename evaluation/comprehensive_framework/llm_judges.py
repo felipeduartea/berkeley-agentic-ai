@@ -85,6 +85,9 @@ class BaseLLMJudge(ABC):
     
     def __init__(self, judge_id: str, model_name: str = "gpt-4o", 
                  api_key: Optional[str] = None, base_url: Optional[str] = None):
+        from dotenv import load_dotenv
+        load_dotenv()
+        
         self.judge_id = judge_id
         self.model_name = model_name
         self.api_key = api_key or os.getenv('OPENAI_API_KEY')
